@@ -1,13 +1,18 @@
 <?php
-// Fetch doctors from the database
-require_once '../config/database.php';
+require_once '../config/database.php';  // Adjust path if necessary
 $database = new Database();
 $db = $database->getConnection();
-
+// Fetch available time slots for each doctor
 $query = "SELECT id, name FROM doctors";
 $stmt = $db->prepare($query);
 $stmt->execute();
 $doctors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch available time slots for each doctor
+$timeSlotsQuery = "SELECT * FROM time_slots WHERE available = 1";
+$timeStmt = $db->prepare($timeSlotsQuery);
+$timeStmt->execute();
+$timeSlots = $timeStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +21,6 @@ $doctors = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Appointment</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -41,7 +45,11 @@ $doctors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="mb-3">
                     <label for="time_slot" class="form-label">Select Time Slot:</label>
-                    <input type="datetime-local" name="time_slot" id="time_slot" class="form-control" required>
+                    <select name="time_slot" id="time_slot" class="form-select" required>
+                        <?php foreach ($timeSlots as $slot) : ?>
+                            <option value="<?= $slot['slot_time'] ?>"><?= htmlspecialchars($slot['slot_time']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -55,8 +63,6 @@ $doctors = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </div>
 
-<!-- Bootstrap JS (optional, for interactivity) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

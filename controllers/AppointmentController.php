@@ -21,34 +21,43 @@ class AppointmentController {
 
             if ($success) {
                 echo "Appointment booked successfully!";
-                $this->sendConfirmationEmail("quangcuber002@gmail.com");
+                $this->sendConfirmationEmail("JohnDoe@example.com");
             } else {
                 echo "Failed to book appointment.";
             }
+        }
+    }
+    public function markTimeSlotUnavailable() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $doctorId = $_POST['doctor_id'];
+            $timeSlot = $_POST['time_slot'];
+            $this->model->markTimeSlotUnavailable($doctorId, $timeSlot);
+            echo "Time slot marked as unavailable!";
         }
     }
 
     private function sendConfirmationEmail($to) {
         $mail = new PHPMailer(true);
         try {
-            // SMTP server configuration
+            // SMTP server configuration for Mercury Mail
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = '127.0.0.1';  // Mercury server is on localhost
             $mail->SMTPAuth = true;
-            $mail->Username = 'your_email@gmail.com';
-            $mail->Password = 'your_email_password';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
+            $mail->Username = 'user@example.com'; // Use the local user created in Mercury
+            $mail->Password = '123456';    // Password for that Mercury user
+            $mail->Port = 25;                     // Default SMTP port for Mercury
+            
             // Email content
-            $mail->setFrom('your_email@gmail.com', 'Doctor Appointment');
+            $mail->setFrom('user@example.com', 'Doctor Appointment');
             $mail->addAddress($to);
             $mail->Subject = 'Appointment Confirmation';
             $mail->Body = "Your appointment has been confirmed. Please arrive 10 minutes before your appointment time.";
+            
             $mail->send();
             echo "Confirmation email sent!";
         } catch (Exception $e) {
             echo "Error sending email: {$mail->ErrorInfo}";
         }
     }
+    
 }
