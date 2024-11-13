@@ -74,6 +74,13 @@ VALUES ('Dr. John Doe', 'Cardiology', 1);  -- replace 1 with the actual user ID 
 
 ```
 
+4. Download PHPMailer
+- Download this repository: [PHPMailer](https://github.com/PHPMailer/PHPMailer)
+- Extract the content of the file and put the content of the PHPMailer file in to this directory: vendor/phpmailer
+- After extracting, it should look like this. Then you good to go.
+![image](https://github.com/user-attachments/assets/b2c28ac2-9dda-4daa-a6d7-7a755e8ff18f)
+
+
 ### Step 3: Run the Application
 
 1. Place the project files in the `htdocs` folder of your XAMPP installation (e.g., `C:/xampp/htdocs/doctor_appointment`).
