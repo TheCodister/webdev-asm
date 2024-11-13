@@ -63,6 +63,17 @@ A web-based application where patients can make appointments with doctors' offic
    );
    ```
 
+3. Add some doctor data, for example:
+
+```sql
+INSERT INTO users (username, password, role, email, phone)
+VALUES ('doctor_office_1', 'password123', 'doctor', 'doctor1@example.com', '1234567890');
+
+INSERT INTO doctors (name, specialty, office_id)
+VALUES ('Dr. John Doe', 'Cardiology', 1);  -- replace 1 with the actual user ID from step 1
+
+```
+
 ### Step 3: Run the Application
 
 1. Place the project files in the `htdocs` folder of your XAMPP installation (e.g., `C:/xampp/htdocs/doctor_appointment`).
