@@ -14,19 +14,33 @@ class AppointmentController {
 
     public function bookAppointment() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $patientId = $_POST['patient_id'];
+            // Capture patient information
+            $name = $_POST['name'];
+            $phone = $_POST['phone'];
+            $email = $_POST['email'];
             $doctorId = $_POST['doctor_id'];
             $timeSlot = $_POST['time_slot'];
+
+            // Create a new patient if not already in the database
+            $patientId = $this->model->getPatientId($name, $email, $phone);
+
+            // If the patient does not exist, insert a new patient
+            if (!$patientId) {
+                $patientId = $this->model->addPatient($name, $phone, $email);
+            }
+
+            // Save the appointment
             $success = $this->model->bookAppointment($patientId, $doctorId, $timeSlot);
 
             if ($success) {
                 echo "Appointment booked successfully!";
-                $this->sendConfirmationEmail("quangcuber002@gmail.com");
+                $this->sendConfirmationEmail($email);
             } else {
                 echo "Failed to book appointment.";
             }
         }
     }
+    
     public function markTimeSlotUnavailable() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $doctorId = $_POST['doctor_id'];
