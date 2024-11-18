@@ -2,36 +2,45 @@
 session_start();
 require_once '../config/database.php';
 
-$database = new Database();
-$db = $database->getConnection();
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Check credentials
+    $database = new Database();
+    $db = $database->getConnection();
+
+    // Verify user credentials
     $query = "SELECT id, role FROM users WHERE username = :username AND password = :password";
     $stmt = $db->prepare($query);
-    $stmt->bindParam(":username", $username);
-    $stmt->bindParam(":password", $password); // Make sure passwords are hashed in production!
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':password', $password); // In production, use hashed passwords
     $stmt->execute();
-
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        // Store user information in session
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['role'] = $user['role'];
+        $_SESSION['user_role'] = $user['role'];
         $_SESSION['logged_in'] = true;
         $_SESSION['start_time'] = time(); // Track session start time
 
-        // Redirect based on role
         if ($user['role'] === 'doctor') {
-            header("Location: viewAppointments.php");
-        } elseif ($user['role'] === 'patient') {
-            header("Location: bookAppointment.php");
+            // Fetch office_id for doctor
+            $query = "SELECT office_id FROM doctors WHERE id = :user_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':user_id', $user['id']);
+            $stmt->execute();
+            $office = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($office) {
+                $_SESSION['office_id'] = $office['office_id'];
+            }
+            header('Location: viewOfficeAppointments.php');
+        } else if($user['role'] === 'patient'){
+            header('Location: bookAppointment.php');
+        } else if($user['role'] === 'staff'){
+            header('Location: viewAppointments.php');
         }
-        exit;
+        exit();
     } else {
         $error = "Invalid username or password.";
     }
