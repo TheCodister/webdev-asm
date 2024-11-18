@@ -1,5 +1,5 @@
 <?php
-require_once '../middleware/roleCheck.php';
+require_once '../middleware/doctorCheck.php';
 require_once '../config/database.php';
 
 $database = new Database();

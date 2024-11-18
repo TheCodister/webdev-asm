@@ -1,6 +1,7 @@
 <?php
 require_once '../config/database.php';
 require_once '../middleware/sessionCheck.php';
+
 $database = new Database();
 $db = $database->getConnection();
 

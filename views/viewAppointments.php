@@ -1,7 +1,7 @@
 <?php
 require_once '../config/database.php';
 require_once '../controllers/DoctorController.php';
-require_once '../middleware/sessionCheck.php';
+require_once '../middleware/staffCheck.php';
 
 // Initialize database and controller
 $database = new Database();
