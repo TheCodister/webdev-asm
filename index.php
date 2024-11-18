@@ -1,14 +1,9 @@
 <?php
-require_once 'config/database.php';
-require_once 'controllers/AppointmentController.php';
-
-$database = new Database();
-$db = $database->getConnection();
-
-$action = $_GET['action'] ?? '';
-
-if ($action == 'book_appointment') {
-    $controller = new AppointmentController($db);
-    $controller->bookAppointment();
+session_start();
+// Check if the user is logged in
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    // Redirect to the login page
+    header("Location: views/login.php");
+    exit;
 }
 ?>

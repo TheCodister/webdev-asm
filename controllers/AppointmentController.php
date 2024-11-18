@@ -1,6 +1,6 @@
 <?php
-require 'vendor/autoload.php';
-require_once 'models/AppointmentModel.php';
+require '../vendor/autoload.php';
+require_once '../models/AppointmentModel.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -14,19 +14,34 @@ class AppointmentController {
 
     public function bookAppointment() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $patientId = $_POST['patient_id'];
+            // Capture patient information
+            $name = $_POST['name'];
+            $phone = $_POST['phone'];
+            $email = $_POST['email'];
             $doctorId = $_POST['doctor_id'];
             $timeSlot = $_POST['time_slot'];
+
+            // Create a new patient if not already in the database
+            $patientId = $this->model->getPatientId($name, $email, $phone);
+
+            // If the patient does not exist, insert a new patient
+            if (!$patientId) {
+                $patientId = $this->model->addPatient($name, $phone, $email);
+            }
+
+            // Save the appointment
             $success = $this->model->bookAppointment($patientId, $doctorId, $timeSlot);
 
             if ($success) {
-                echo "Appointment booked successfully!";
-                $this->sendConfirmationEmail("JohnDoe@example.com");
+                $this->sendConfirmationEmail($email);
+                echo "<script>alert('Appointment booked successfully!');</script>";
+                echo "<script>window.location.href = '/assignment/views/bookAppointment.php';</script>";
             } else {
                 echo "Failed to book appointment.";
             }
         }
     }
+    
     public function markTimeSlotUnavailable() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $doctorId = $_POST['doctor_id'];
@@ -41,15 +56,17 @@ class AppointmentController {
         try {
             // SMTP server configuration for Mercury Mail
             $mail->isSMTP();
-            $mail->Host = '127.0.0.1';  // Mercury server is on localhost
+            $mail->Host = 'smtp.gmail.com';  // Mercury server is on localhost
             $mail->SMTPAuth = true;
-            $mail->Username = 'user@example.com'; // Use the local user created in Mercury
-            $mail->Password = '123456';    // Password for that Mercury user
-            $mail->Port = 25;                     // Default SMTP port for Mercury
+            $mail->Username = 'quangcuber002@gmail.com'; // Use the local user created in Mercury
+            $mail->Password = 'ktfnpjsstwukfhrx';    // Password for that Mercury user
+            $mail->SMTPSecure = 'ssl';  
+            $mail->Port = 465;                     // Default SMTP port for Mercury
             
             // Email content
             $mail->setFrom('user@example.com', 'Doctor Appointment');
             $mail->addAddress($to);
+            $mail->isHTML(true);
             $mail->Subject = 'Appointment Confirmation';
             $mail->Body = "Your appointment has been confirmed. Please arrive 10 minutes before your appointment time.";
             

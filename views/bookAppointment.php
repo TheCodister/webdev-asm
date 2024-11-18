@@ -1,8 +1,10 @@
 <?php
-require_once '../config/database.php';  // Adjust path if necessary
+require_once '../config/database.php';
+require_once '../middleware/sessionCheck.php';
 $database = new Database();
 $db = $database->getConnection();
-// Fetch available time slots for each doctor
+
+// Fetch doctors
 $query = "SELECT id, name FROM doctors";
 $stmt = $db->prepare($query);
 $stmt->execute();
@@ -33,7 +35,22 @@ $timeSlots = $timeStmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         <?php else : ?>
             <h3 class="text-center mb-4">Book an Appointment</h3>
-            <form action="/assignment/index.php?action=book_appointment" method="POST">
+            <form action="/assignment/routes/bookAppointmentRoutes.php?action=book_appointment" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <input type="text" name="phone" id="phone" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" required>
+                </div>
+
                 <div class="mb-3">
                     <label for="doctor_id" class="form-label">Select Doctor:</label>
                     <select name="doctor_id" id="doctor_id" class="form-select" required>
@@ -51,13 +68,10 @@ $timeSlots = $timeStmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php endforeach; ?>
                     </select>
                 </div>
-
-                <div class="mb-3">
-                    <label for="patient_id" class="form-label">Patient ID:</label>
-                    <input type="number" name="patient_id" id="patient_id" class="form-control" required>
+                <div class="d-flex flex-column gap-3">
+                    <button type="submit" class="btn btn-primary w-100">Book Appointment</button>
+                    <a class="btn btn-secondary w-100" href="../controllers/LogoutController.php">Log out</a> 
                 </div>
-
-                <button type="submit" class="btn btn-primary w-100">Book Appointment</button>
             </form>
         <?php endif; ?>
     </div>

@@ -41,6 +41,12 @@ A web-based application where patients can make appointments with doctors' offic
        office_id INT,
        FOREIGN KEY (office_id) REFERENCES users(id) ON DELETE CASCADE
    );
+    CREATE TABLE patients (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        phone VARCHAR(20),
+        email VARCHAR(255)
+   );
 
    -- Appointments table
    CREATE TABLE appointments (
@@ -73,6 +79,13 @@ INSERT INTO doctors (name, specialty, office_id)
 VALUES ('Dr. John Doe', 'Cardiology', 1);  -- replace 1 with the actual user ID from step 1
 
 ```
+
+4. Download PHPMailer
+
+- Download this repository: [PHPMailer](https://github.com/PHPMailer/PHPMailer)
+- Extract the content of the file and put the content of the PHPMailer file in to this directory: vendor/phpmailer
+- After extracting, it should look like this. Then you good to go.
+  ![image](https://github.com/user-attachments/assets/b2c28ac2-9dda-4daa-a6d7-7a755e8ff18f)
 
 ### Step 3: Run the Application
 
