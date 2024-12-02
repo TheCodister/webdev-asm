@@ -32,14 +32,14 @@ try {
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">MEDCARE</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand d-flex justify-content-center align-items-center" href="../index.php">
+                <img src="../01_logobachkhoatoi.png" alt="Hospital Logo" width="100" class="d-inline-block align-top">
+                <h2 class="fw-bold">MEDCARE</h2>
+            </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li> 
-                    <!-- Dropdown for Contact -->
+                     <!-- Dropdown for Contact -->
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Contact
@@ -48,7 +48,7 @@ try {
                             <li><a class="dropdown-item" href="mailto:contact@hospital.com">Email: contact@hospital.com</a></li>
                             <li><a class="dropdown-item" href="tel:+123456789">Phone: +123 456 789</a></li>
                         </ul>
-                    </li> 
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="../index.php#department">Department</a></li> 
                     <li class="nav-item"><a class="nav-link" href="doctors.php">Doctors</a></li> 
                     <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li> 
