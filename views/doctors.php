@@ -49,7 +49,7 @@ try {
                             <li><a class="dropdown-item" href="tel:+123456789">Phone: +123 456 789</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="../index.php#department">Department</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="department.php">Department</a></li> 
                     <li class="nav-item"><a class="nav-link" href="doctors.php">Doctors</a></li> 
                     <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li> 
                 </ul>
