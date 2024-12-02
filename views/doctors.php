@@ -39,7 +39,16 @@ try {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li> 
-                    <li class="nav-item"><a class="nav-link" href="../index.php#contact">Contact</a></li> 
+                    <!-- Dropdown for Contact -->
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Contact
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="mailto:contact@hospital.com">Email: contact@hospital.com</a></li>
+                            <li><a class="dropdown-item" href="tel:+123456789">Phone: +123 456 789</a></li>
+                        </ul>
+                    </li> 
                     <li class="nav-item"><a class="nav-link" href="../index.php#department">Department</a></li> 
                     <li class="nav-item"><a class="nav-link" href="doctors.php">Doctors</a></li> 
                     <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li> 
