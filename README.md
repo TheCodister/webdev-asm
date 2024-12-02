@@ -74,22 +74,16 @@ A web-based application where patients can make appointments with doctors' offic
 ```sql
 -- Insert users (admin, staff, doctors, and patients)
 INSERT INTO users (username, password, role, email, phone) VALUES
-('admin_user', 'adminpass', 'admin', 'admin@example.com', '1234567890'),
-('staff_user', 'staffpass', 'staff', 'staff@example.com', '1234567891'),
 ('doctor1_user', 'doctorpass1', 'doctor', 'doctor1@example.com', '1234567892'),
 ('doctor2_user', 'doctorpass2', 'doctor', 'doctor2@example.com', '1234567893'),
 ('patient1_user', 'patientpass1', 'patient', 'patient1@example.com', '1234567894'),
-('patient2_user', 'patientpass2', 'patient', 'patient2@example.com', '1234567895');
+('patient2_user', 'patientpass2', 'patient', 'patient2@example.com', '1234567895'),
+('staff_user', 'staffpass', 'staff', 'staff@example.com', '1234567891');
 
 -- Insert doctors (linking to users)
 INSERT INTO doctors (name, specialty, office_id) VALUES
 ('Dr. John Doe', 'Cardiologist', 3), -- Matches doctor1_user
 ('Dr. Jane Smith', 'Dermatologist', 4); -- Matches doctor2_user
-
--- Insert patients
-INSERT INTO patients (name, phone, email) VALUES
-('Patient One', '1234567894', 'patient1@example.com'),
-('Patient Two', '1234567895', 'patient2@example.com');
 
 -- Insert time slots for each doctor
 INSERT INTO time_slots (doctor_id, slot_time, available) VALUES

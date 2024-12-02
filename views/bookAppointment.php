@@ -55,6 +55,7 @@ $timeSlots = $timeStmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="mb-3">
                     <label for="doctor_id" class="form-label">Select Doctor:</label>
                     <select name="doctor_id" id="doctor_id" class="form-select" required>
+                        <option value="">Select a doctor</option>
                         <?php foreach ($doctors as $doctor) : ?>
                             <option value="<?= $doctor['id'] ?>"><?= htmlspecialchars($doctor['name']) ?></option>
                         <?php endforeach; ?>
@@ -64,11 +65,34 @@ $timeSlots = $timeStmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="mb-3">
                     <label for="time_slot" class="form-label">Select Time Slot:</label>
                     <select name="time_slot" id="time_slot" class="form-select" required>
-                        <?php foreach ($timeSlots as $slot) : ?>
-                            <option value="<?= $slot['slot_time'] ?>"><?= htmlspecialchars($slot['slot_time']) ?></option>
-                        <?php endforeach; ?>
+                        <option value="">Select a time slot</option>
                     </select>
                 </div>
+
+                <script>
+                document.getElementById('doctor_id').addEventListener('change', function () {
+                    const doctorId = this.value;
+                    const timeSlotSelect = document.getElementById('time_slot');
+
+                    if (doctorId) {
+                        fetch(`/assignment/routes/getTimeSlotRoute.php?doctor_id=${doctorId}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                timeSlotSelect.innerHTML = '<option value="">Select a time slot</option>';
+                                data.forEach(slot => {
+                                    const option = document.createElement('option');
+                                    option.value = slot.slot_time;
+                                    option.textContent = slot.slot_time;
+                                    timeSlotSelect.appendChild(option);
+                                });
+                            })
+                            .catch(error => console.error('Error fetching time slots:', error));
+                    } else {
+                        timeSlotSelect.innerHTML = '<option value="">Select a time slot</option>';
+                    }
+                });
+                </script>
+
                 <div class="d-flex flex-column gap-3">
                     <button type="submit" class="btn btn-primary w-100">Book Appointment</button>
                     <a class="btn btn-secondary w-100" href="../controllers/LogoutController.php">Log out</a> 
