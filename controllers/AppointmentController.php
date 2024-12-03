@@ -54,17 +54,17 @@ class AppointmentController {
     private function sendConfirmationEmail($to) {
         $mail = new PHPMailer(true);
         try {
-            // SMTP server configuration for Mercury Mail
+            // SMTP server configuration for sending email
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';  // Mercury server is on localhost
+            $mail->Host = 'smtp.gmail.com';  // Use gmail smtp server
             $mail->SMTPAuth = true;
-            $mail->Username = 'quangcuber002@gmail.com'; // Use the local user created in Mercury
-            $mail->Password = 'ktfnpjsstwukfhrx';    // Password for that Mercury user
+            $mail->Username = 'quangcuber002@gmail.com'; // Use the gmail address
+            $mail->Password = 'ktfnpjsstwukfhrx';    // Password for that app password
             $mail->SMTPSecure = 'ssl';  
-            $mail->Port = 465;                     // Default SMTP port for Mercury
+            $mail->Port = 465;                     // Default SMTP port for gmail
             
             // Email content
-            $mail->setFrom('user@example.com', 'Doctor Appointment');
+            $mail->setFrom('quangcuber002@gmail.com', 'Doctor Appointment');
             $mail->addAddress($to);
             $mail->isHTML(true);
             $mail->Subject = 'Appointment Confirmation';

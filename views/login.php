@@ -25,21 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($user['role'] === 'doctor') {
             // Fetch office_id for doctor
-            $query = "
-                SELECT d.office_id 
-                FROM doctors d 
-                INNER JOIN users u ON d.id = u.id 
-                WHERE u.id = :user_id
-            ";
+            $query = "SELECT office_id FROM doctors WHERE id = :user_id";
             $stmt = $db->prepare($query);
             $stmt->bindParam(':user_id', $user['id']);
             $stmt->execute();
             $office = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-            if ($office && isset($office['office_id'])) {
+
+            if ($office) {
                 $_SESSION['office_id'] = $office['office_id'];
-            } else {
-                die("Error: Office ID not found for this doctor.");
             }
             header('Location: viewOfficeAppointments.php');
         } else if($user['role'] === 'patient'){
@@ -78,7 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="password" class="form-label">Password</label>
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100 mb-2">Login</button>
+            <a href="../" class="btn btn-secondary w-100">Return to Homepage</a>
         </form>
     </div>
 </div>

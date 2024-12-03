@@ -36,7 +36,7 @@ $timeSlots = $timeStmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         <?php else : ?>
             <h3 class="text-center mb-4">Book an Appointment</h3>
-            <form action="/webdev-asm/routes/bookAppointmentRoutes.php?action=book_appointment" method="POST">
+            <form action="/assignment/routes/bookAppointmentRoutes.php?action=book_appointment" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name:</label>
                     <input type="text" name="name" id="name" class="form-control" required>
@@ -75,7 +75,7 @@ $timeSlots = $timeStmt->fetchAll(PDO::FETCH_ASSOC);
                     const timeSlotSelect = document.getElementById('time_slot');
 
                     if (doctorId) {
-                        fetch(`/webdev-asm/routes/getTimeSlotRoute.php?doctor_id=${doctorId}`)
+                        fetch(`/assignment/routes/getTimeSlotRoute.php?doctor_id=${doctorId}`)
                             .then(response => response.json())
                             .then(data => {
                                 timeSlotSelect.innerHTML = '<option value="">Select a time slot</option>';

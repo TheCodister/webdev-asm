@@ -34,15 +34,16 @@
                     </li>
 
                     <li class="nav-item"><a class="nav-link" href="views/department.php">Department</a></li>
-                    <li class="nav-item"><a class="nav-link" href="views/doctor.php">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="views/doctors.php">Doctors</a></li>
                     <li class="nav-item"><a class="nav-link" href="views/login.php">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="views/register.php">Register</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="hero d-flex align-items-center">
+    <!-- <div class="hero d-flex align-items-center">
         <div>
             <h1>Making Health Care Better Together</h1>
             <p>
@@ -53,6 +54,9 @@
                 <a href="views/login.php" class="btn btn-primary">Make An Appointment</a>
             </div>
         </div>
+    </div> -->
+    <div class="container mt-3">
+        <?php include 'routes/pageRoutes.php'; ?>
     </div>
 
     <!-- Services Section -->
