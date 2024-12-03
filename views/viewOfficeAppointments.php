@@ -5,7 +5,7 @@ require_once '../config/database.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$officeId = $_SESSION['office_id']; // Office ID fetched during login
+$officeId = $_SESSION['office_id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['appointment_id'])) {
     $appointmentId = $_POST['appointment_id'];

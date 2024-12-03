@@ -11,9 +11,9 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="01_logobachkhoatoi.png" alt="Hospital Logo" width="30" height="30" class="d-inline-block align-top">
-                MEDCARE
+            <a class="navbar-brand d-flex justify-content-center align-items-center" href="#">
+                <img src="01_logobachkhoatoi.png" alt="Hospital Logo" width="100" class="d-inline-block align-top">
+                <h2 class="fw-bold">MEDCARE</h2>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -33,10 +33,9 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Department</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="views/department.php">Department</a></li>
+                    <li class="nav-item"><a class="nav-link" href="views/doctor.php">Doctors</a></li>
                     <li class="nav-item"><a class="nav-link" href="views/login.php">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="views/register.php">Register</a></li>
                 </ul>
             </div>
         </div>
@@ -51,7 +50,7 @@
                 with state-of-the-art equipment and experienced professionals.
             </p>
             <div class="hero-buttons">
-                <a href="#" class="btn btn-primary">Make An Appointment</a>
+                <a href="views/login.php" class="btn btn-primary">Make An Appointment</a>
             </div>
         </div>
     </div>
